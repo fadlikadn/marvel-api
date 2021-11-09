@@ -1,9 +1,9 @@
 import { Get, Route } from "tsoa";
-const md5 = require("md5");
 import path from "path";
 import axios from "axios";
-import CharacterDataWrapper, { MarvelResponse } from "../src/dto/models/marvel-character";
+import CharacterDataWrapper, { CharacterIds, CharacterReturn, extractCharacterIds, MarvelResponse, toCharacterReturn } from "../src/dto/models/marvel-character";
 
+const md5 = require("md5");
 process.env["NODE_CONFIG_DIR"] = path.join(__dirname, "../src/", "config");
 const config = require("config");
 const marvelConfig = config.get("marvelConfig");
@@ -11,33 +11,31 @@ const marvelConfig = config.get("marvelConfig");
 @Route("marvel")
 export default class MarvelController {
     @Get("/characters")
-    public async getCharacters(): Promise<CharacterDataWrapper> {
+    public async getCharacters(): Promise<CharacterIds> {
         const hash = md5(`${marvelConfig.ts}${marvelConfig.privateKey}${marvelConfig.publicKey}`);
         const url = `${marvelConfig.url}characters?apikey=${marvelConfig.publicKey}&hash=${hash}&ts=${marvelConfig.ts}`;
         try {
             const { data } = await axios.get(url);
-            return data;
+            const ids = extractCharacterIds(data as CharacterDataWrapper);
+            return ids;
         } catch (err) {
             console.log(err);
-            const errResult: CharacterDataWrapper = {
-                code: 500,
-            };
+            const errResult: CharacterIds = [];
             return errResult;
         }
     }
 
     @Get("/characters/{id}")
-    public async getCharacterById(id: string): Promise<CharacterDataWrapper> {
+    public async getCharacterById(id: string): Promise<CharacterReturn> {
         const hash = md5(`${marvelConfig.ts}${marvelConfig.privateKey}${marvelConfig.publicKey}`);
         const url = `${marvelConfig.url}characters/${id}?apikey=${marvelConfig.publicKey}&hash=${hash}&ts=${marvelConfig.ts}`;
         try {
             const { data } = await axios.get(url);
-            return data;
+            const convertedData = toCharacterReturn(data as CharacterDataWrapper);
+            return convertedData;
         } catch (err) {
             console.log(err);
-            const errResult: CharacterDataWrapper = {
-                code: 500,
-            };
+            const errResult: CharacterReturn = {};
             return errResult;
         }
     }

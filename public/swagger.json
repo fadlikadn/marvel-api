@@ -18,174 +18,23 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"Url": {
+			"Pick_Character.id_": {
 				"properties": {
-					"type": {
-						"type": "string"
-					},
-					"url": {
-						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"Image": {
-				"properties": {
-					"path": {
-						"type": "string"
-					},
-					"extension": {
-						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"ComicSummary": {
-				"properties": {
-					"resourceURI": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"ComicList": {
-				"properties": {
-					"available": {
+					"id": {
 						"type": "number",
 						"format": "double"
-					},
-					"returned": {
-						"type": "number",
-						"format": "double"
-					},
-					"collectionURI": {
-						"type": "string"
-					},
-					"items": {
-						"items": {
-							"$ref": "#/components/schemas/ComicSummary"
-						},
-						"type": "array"
 					}
 				},
 				"type": "object",
-				"additionalProperties": false
+				"description": "From T, pick a set of properties whose keys are in the union K"
 			},
-			"StorySummary": {
-				"properties": {
-					"resourceURI": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					},
-					"type": {
-						"type": "string"
-					}
+			"CharacterIds": {
+				"items": {
+					"$ref": "#/components/schemas/Pick_Character.id_"
 				},
-				"type": "object",
-				"additionalProperties": false
+				"type": "array"
 			},
-			"StoryList": {
-				"properties": {
-					"available": {
-						"type": "number",
-						"format": "double"
-					},
-					"returned": {
-						"type": "number",
-						"format": "double"
-					},
-					"collectionURI": {
-						"type": "string"
-					},
-					"items": {
-						"items": {
-							"$ref": "#/components/schemas/StorySummary"
-						},
-						"type": "array"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EventSummary": {
-				"properties": {
-					"resourceURI": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"EventList": {
-				"properties": {
-					"available": {
-						"type": "number",
-						"format": "double"
-					},
-					"returned": {
-						"type": "number",
-						"format": "double"
-					},
-					"collectionURI": {
-						"type": "string"
-					},
-					"items": {
-						"items": {
-							"$ref": "#/components/schemas/EventSummary"
-						},
-						"type": "array"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"SeriesSummary": {
-				"properties": {
-					"resourceURI": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"SeriesList": {
-				"properties": {
-					"available": {
-						"type": "number",
-						"format": "double"
-					},
-					"returned": {
-						"type": "number",
-						"format": "double"
-					},
-					"collectionURI": {
-						"type": "string"
-					},
-					"items": {
-						"items": {
-							"$ref": "#/components/schemas/SeriesSummary"
-						},
-						"type": "array"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"Character": {
+			"Pick_Character.id-or-name-or-description_": {
 				"properties": {
 					"id": {
 						"type": "number",
@@ -196,94 +45,13 @@
 					},
 					"description": {
 						"type": "string"
-					},
-					"modified": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"resourceURI": {
-						"type": "string"
-					},
-					"urls": {
-						"items": {
-							"$ref": "#/components/schemas/Url"
-						},
-						"type": "array"
-					},
-					"thumbnail": {
-						"$ref": "#/components/schemas/Image"
-					},
-					"comics": {
-						"$ref": "#/components/schemas/ComicList"
-					},
-					"stories": {
-						"$ref": "#/components/schemas/StoryList"
-					},
-					"events": {
-						"$ref": "#/components/schemas/EventList"
-					},
-					"series": {
-						"$ref": "#/components/schemas/SeriesList"
 					}
 				},
 				"type": "object",
-				"additionalProperties": false
+				"description": "From T, pick a set of properties whose keys are in the union K"
 			},
-			"CharacterDataContainer": {
-				"properties": {
-					"offset": {
-						"type": "number",
-						"format": "double"
-					},
-					"limit": {
-						"type": "number",
-						"format": "double"
-					},
-					"total": {
-						"type": "number",
-						"format": "double"
-					},
-					"count": {
-						"type": "number",
-						"format": "double"
-					},
-					"result": {
-						"items": {
-							"$ref": "#/components/schemas/Character"
-						},
-						"type": "array"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
-			},
-			"CharacterDataWrapper": {
-				"properties": {
-					"code": {
-						"type": "number",
-						"format": "double"
-					},
-					"status": {
-						"type": "string"
-					},
-					"copyright": {
-						"type": "string"
-					},
-					"attributionText": {
-						"type": "string"
-					},
-					"attributionHTML": {
-						"type": "string"
-					},
-					"etag": {
-						"type": "string"
-					},
-					"data": {
-						"$ref": "#/components/schemas/CharacterDataContainer"
-					}
-				},
-				"type": "object",
-				"additionalProperties": false
+			"CharacterReturn": {
+				"$ref": "#/components/schemas/Pick_Character.id-or-name-or-description_"
 			},
 			"MarvelResponse": {
 				"properties": {
@@ -338,7 +106,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/CharacterDataWrapper"
+									"$ref": "#/components/schemas/CharacterIds"
 								}
 							}
 						}
@@ -357,7 +125,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/CharacterDataWrapper"
+									"$ref": "#/components/schemas/CharacterReturn"
 								}
 							}
 						}
