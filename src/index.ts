@@ -4,7 +4,7 @@ import "reflect-metadata";
 import express, { Application } from "express";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
-import Router from "../routes";
+import Router from "./routes";
 
 const server = require("./server/server");
 

@@ -52,18 +52,6 @@
 			},
 			"CharacterReturn": {
 				"$ref": "#/components/schemas/Pick_Character.id-or-name-or-description_"
-			},
-			"MarvelResponse": {
-				"properties": {
-					"message": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"message"
-				],
-				"type": "object",
-				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -142,25 +130,6 @@
 						}
 					}
 				]
-			}
-		},
-		"/marvel/hash": {
-			"get": {
-				"operationId": "GetHash",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/MarvelResponse"
-								}
-							}
-						}
-					}
-				},
-				"security": [],
-				"parameters": []
 			}
 		}
 	},

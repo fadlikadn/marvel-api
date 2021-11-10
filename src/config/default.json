@@ -7,5 +7,9 @@
         "publicKey": "af16416b8c0cd014cd92443dc2347686",
         "privateKey": "aa8128aab9247e8ec21adf66372a5407562135de",
         "ts": "abcde"
+    },
+    "redisConfig": {
+        "host": "redis",
+        "port": "6379"
     }
 }
