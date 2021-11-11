@@ -6,34 +6,6 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"PingResponse": {
-				"properties": {
-					"message": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"message"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"Pick_Character.id_": {
-				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"type": "object",
-				"description": "From T, pick a set of properties whose keys are in the union K"
-			},
-			"CharacterIds": {
-				"items": {
-					"$ref": "#/components/schemas/Pick_Character.id_"
-				},
-				"type": "array"
-			},
 			"Pick_Character.id-or-name-or-description_": {
 				"properties": {
 					"id": {
@@ -66,25 +38,6 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/ping": {
-			"get": {
-				"operationId": "GetMessage",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PingResponse"
-								}
-							}
-						}
-					}
-				},
-				"security": [],
-				"parameters": []
-			}
-		},
 		"/marvel/characters": {
 			"get": {
 				"operationId": "GetCharacters",
@@ -94,7 +47,11 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/CharacterIds"
+									"items": {
+										"type": "number",
+										"format": "double"
+									},
+									"type": "array"
 								}
 							}
 						}

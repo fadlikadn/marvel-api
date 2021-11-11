@@ -2,15 +2,35 @@
     "compilerOptions": {
         "target": "es6",
         "module": "CommonJS",
-        "outDir": "./build",
+        "outDir": "build",
+        "rootDir": "src",
         "strict": true,
+        "noImplicitAny": false,
+        "strictNullChecks": true,
+        "checkJs": true,
+        "allowJs": true,
+        "moduleResolution": "node",
+        "types": [
+            "node"
+        ],
+        "lib": [
+            "es6"
+        ],
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
     },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.js"
+    ],
     "exclude": [
         "typings/browser.d.ts",
         "typings/browser",
-        "node_modules"
-      ]
+        "node_modules",
+        "<node_internals>/**",
+    ],
+    "paths": {
+        "*": ["src/types/*.d.ts"]
+    }
 }

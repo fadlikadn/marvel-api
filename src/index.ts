@@ -6,8 +6,6 @@ import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import Router from "./routes";
 
-const server = require("./server/server");
-
 const path = require("path");
 process.env["NODE_CONFIG_DIR"] = path.join(__dirname, "config");
 const config = require("config");
@@ -24,6 +22,8 @@ process.on('uncaughtRejection', (err, promise) => {
 });
 
 const app: Application = express();
+require("./helpers/cacheManager");
+
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static("public"));
