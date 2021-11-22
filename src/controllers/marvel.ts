@@ -5,6 +5,10 @@ import { Get, Route } from "tsoa";
 import CharacterDataWrapper, { CharacterIds, CharacterReturn } from "../dto/models/marvel-character";
 import { extractCharacterIds, toCharacterReturn } from "../helpers/helpers";
 import { getCharacters, getCharacterById } from "../services/marvel-services";
+import factory from "../config/di-factory";
+
+// const factory = require("../config/di-factory");
+const marvelService = factory.MarvelService;
 
 @Route("marvel")
 export default class MarvelController {
@@ -26,7 +30,14 @@ export default class MarvelController {
         if (currentEtag && currentEtag !== "") {
             try {
                 // first call
-                data = await getCharacters(limit, offset, currentEtag);
+                // data = await getCharacters(limit, offset, currentEtag);
+                data = await marvelService.getCharacters(limit, offset, currentEtag);
+                if (currentEtag == data.etag) {
+                    cache = true;
+                } else {
+                    cache = false;
+                    await global.MarvelCache.setAsync(`etag|${offset}|${limit}`, data.etag);
+                }
             } catch(err) {
                 if ((err as AxiosError).response?.status === 304) {
                     cache = true;
@@ -61,10 +72,16 @@ export default class MarvelController {
                 if (cache) {
                     // get from cache
                     cachedData = await global.MarvelCache.getAsync(cachedDataName);
-                    data = JSON.parse(cachedData);
+                    if (cachedData) {
+                        data = JSON.parse(cachedData);
+                    } else {
+                        data = await marvelService.getCharacters(limit, offset);
+                    }
+                    
                 } else {
                     // get from api call
-                    data = await getCharacters(limit, offset);
+                    // data = await getCharacters(limit, offset);
+                    data = await marvelService.getCharacters(limit, offset);
                 }
                 
                 const ids = extractCharacterIds(data);
